@@ -115,6 +115,25 @@
                 transform: scale(2);
             }
         }
+
+.falling-ratcoin {
+            position: fixed;
+            width: 30px; /* Adjust size of the image */
+            height: 30px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        
     </style>
 </head>
 <body>
@@ -175,6 +194,28 @@
         document.querySelector('.join-btn').addEventListener('click', () => {
             console.log('Button clicked!');
         });
+
+        // Function to create a falling RatCoin
+        function createFallingRatCoin() {
+            const ratCoin = document.createElement("img");
+            ratCoin.src = "ratcoin-webmini.png"; // Ensure the image path is correct
+            ratCoin.classList.add("falling-ratcoin");
+
+            // Set a random horizontal position and animation duration
+            ratCoin.style.left = `${Math.random() * 100}vw`;
+            ratCoin.style.animationDuration = `${3 + Math.random() * 5}s`;
+
+            // Add the element to the body
+            document.body.appendChild(ratCoin);
+
+            // Remove the element after the animation
+            ratCoin.addEventListener("animationend", () => {
+                ratCoin.remove();
+            });
+        }
+
+        // Create RatCoins at intervals
+        setInterval(createFallingRatCoin, 300); // Adjust frequency of new Ra
     </script>
 </body>
 </html>
